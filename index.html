@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Questionnaire services KPMG</title>
+<meta name="theme-color" content="#1f6b55">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<style>
+/* Mise en page : une colonne de lecture, une section par thème, barre d'avancement collante en haut. Mêmes couleurs que l'app de portefeuille. */
+:root {
+  --bg: #f4f6f5; --panel: #ffffff; --fg: #17201d; --muted: #5d6b66; --line: #dbe2df;
+  --accent: #1f6b55; --accent-doux: #d8ebe4; --sur-accent: #ffffff; --alerte: #9a5b12; --alerte-doux: #f6ecdc;
+  --titre: "Source Serif 4", Georgia, serif;
+  --texte: "Atkinson Hyperlegible", system-ui, -apple-system, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #101413; --panel: #171d1b; --fg: #e7eeeb; --muted: #97a59f; --line: #2a3330;
+  --accent: #5cc4a2; --accent-doux: #1d3a31; --sur-accent: #0b1210; --alerte: #e3b36a; --alerte-doux: #33291a; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #101413; --panel: #171d1b; --fg: #e7eeeb; --muted: #97a59f; --line: #2a3330;
+  --accent: #5cc4a2; --accent-doux: #1d3a31; --sur-accent: #0b1210; --alerte: #e3b36a; --alerte-doux: #33291a; color-scheme: dark }
+
+html { color-scheme: light; }
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--texte); font-size: 17px; line-height: 1.55; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.page { max-width: 720px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 24px 64px; display: grid; gap: 28px; }
+h1, h2 { font-family: var(--titre); font-weight: 600; text-wrap: balance; margin: 0; line-height: 1.2; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.35rem; }
+p { margin: 0; }
+.chapeau { display: grid; gap: 12px; }
+.sur-titre { font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+.muted { color: var(--muted); }
+.avis { background: var(--alerte-doux); color: var(--fg); border-left: 4px solid var(--alerte); padding: 12px 14px; border-radius: 6px; font-size: .95rem; }
+.avis strong { color: var(--alerte); }
+
+.progres { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 10px; display: grid; gap: 6px; border-bottom: 1px solid var(--line); }
+.progres-ligne { display: flex; justify-content: space-between; gap: 12px; font-size: .9rem; color: var(--muted); flex-wrap: wrap; }
+.barre { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
+.barre > i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .3s; }
+
+section.bloc { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 20px; display: grid; gap: 22px; }
+.bloc-tete { display: grid; gap: 4px; }
+.q { display: grid; gap: 8px; border: 0; margin: 0; padding: 0; min-width: 0; }
+.q legend, .q > label.etiquette { font-weight: 700; padding: 0; margin-bottom: 2px; }
+.aide { font-size: .9rem; color: var(--muted); margin-top: -4px; }
+.choix { display: grid; gap: 6px; }
+.choix label { display: flex; gap: 10px; align-items: flex-start; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; cursor: pointer; }
+.choix label:has(input:checked) { border-color: var(--accent); background: var(--accent-doux); }
+.choix input { margin-top: 4px; accent-color: var(--accent); width: 18px; height: 18px; flex: none; }
+textarea, input[type="text"] { width: 100%; box-sizing: border-box; font: inherit; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; }
+textarea { min-height: 96px; resize: vertical; }
+textarea:focus, input:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.echelle { display: flex; gap: 6px; flex-wrap: wrap; }
+.echelle label { flex: 1 1 52px; text-align: center; padding: 10px 4px; border: 1px solid var(--line); border-radius: 8px; cursor: pointer; font-weight: 700; }
+.echelle label:has(input:checked) { border-color: var(--accent); background: var(--accent); color: var(--sur-accent); }
+.echelle input { position: absolute; opacity: 0; pointer-events: none; }
+.echelle-bornes { display: flex; justify-content: space-between; font-size: .85rem; color: var(--muted); }
+
+.envoi { display: grid; gap: 12px; }
+.boutons { display: flex; gap: 10px; flex-wrap: wrap; }
+button { font: inherit; font-weight: 700; border-radius: 8px; padding: 12px 18px; cursor: pointer; border: 1px solid var(--accent); }
+.principal { background: var(--accent); color: var(--sur-accent); }
+.secondaire { background: transparent; color: var(--accent); }
+button:disabled { opacity: .5; cursor: not-allowed; }
+.etat { font-size: .95rem; min-height: 1.5em; }
+.etat.ok { color: var(--accent); font-weight: 700; }
+.etat.err { color: var(--alerte); font-weight: 700; }
+#texte-copie { min-height: 160px; font-size: .85rem; }
+@media (prefers-reduced-motion: reduce) { .barre > i { transition: none; } }
+[hidden] { display: none !important; }
+.adresse { font-weight: 700; user-select: all; }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="chapeau">
+    <span class="sur-titre">Pour papa · environ 15 minutes</span>
+    <h1>Ce que KPMG fait pour toi</h1>
+    <p>Papa, ce questionnaire sert à comprendre exactement ce que tu paies à KPMG chaque année, pour voir quelles parties une app avec de l’IA pourrait faire à leur place, et lesquelles doivent rester chez un professionnel. Réponds comme tu peux : « je ne sais pas » est une bonne réponse. Tes réponses restent sur ton appareil au fur et à mesure (utilise le même appareil et le même navigateur pour revenir plus tard). Rien n’est envoyé tant que tu n’appuies pas sur « Envoyer ».</p>
+    <p class="avis"><strong>N’écris aucun numéro de compte, NAS, mot de passe ou numéro de carte.</strong> Je n’en ai pas besoin. Pour les montants, des ordres de grandeur suffisent.</p>
+  </header>
+
+  <div class="progres" aria-live="polite">
+    <div class="progres-ligne"><span id="progres-texte">0 question répondue</span><span id="sauvegarde">Rien d’enregistré encore</span></div>
+    <div class="barre"><i id="progres-barre"></i></div>
+  </div>
+
+  <form id="formulaire" novalidate></form>
+
+  <section class="bloc envoi" aria-labelledby="titre-envoi">
+    <div class="bloc-tete">
+      <h2 id="titre-envoi">Envoyer tes réponses</h2>
+      <p class="muted">Quand tu as fini, appuie sur « Envoyer par courriel ». Ton app de courriel va s’ouvrir avec tes réponses déjà écrites, adressées à <span class="adresse">louikagirard@gmail.com</span>. Il te restera juste à appuyer sur Envoyer. Je vais analyser tes réponses et te revenir avec une proposition ou quelques questions de plus.</p>
+    </div>
+    <div class="boutons">
+      <button type="button" class="principal" id="btn-soumettre">Envoyer par courriel</button>
+      <button type="button" class="secondaire" id="btn-copier">Copier mes réponses</button>
+    </div>
+    <p class="etat" id="etat" role="status"></p>
+    <div id="zone-copie" hidden>
+      <p class="muted">Si ton app de courriel ne s’est pas ouverte, copie ce texte et colle-le dans un courriel à <span class="adresse">louikagirard@gmail.com</span>.</p>
+      <textarea id="texte-copie" readonly></textarea>
+    </div>
+  </section>
+</div>
+
+<script>
+const SECTIONS = [
+  { id: "services", titre: "Les services de KPMG", intro: "Ce qu’ils font concrètement pour toi pendant une année.", questions: [
+    { id: "services_liste", type: "multi", label: "Qu’est-ce que KPMG fait pour toi ?", aide: "Coche tout ce qui s’applique, même si tu n’es pas certain.", options: [
+      "Mes déclarations de revenus personnelles", "Les déclarations de revenus de ma ou mes compagnies",
+      "Planification fiscale (comment payer moins d’impôt légalement)", "États financiers de mes compagnies",
+      "Audit ou mission d’examen (états financiers « vérifiés » ou « examinés »)", "Tenue de livres, comptabilité au mois",
+      "Paie des employés", "TPS / TVQ", "Conseils sur mes placements ou mon portefeuille",
+      "Gestion directe de mes placements (ils achètent et vendent)", "Planification de succession, testament, gel successoral",
+      "Fiducie familiale", "Structure de compagnies (holding, réorganisation)", "Achat ou vente d’entreprise",
+      "Impôt aux États-Unis ou dans un autre pays", "Me représenter quand l’ARC ou Revenu Québec pose des questions",
+      "Je ne sais pas exactement" ] },
+    { id: "services_mots", type: "textarea", label: "Dans tes mots, que fait KPMG pour toi pendant une année typique ?", aide: "Par exemple : « en mars ils font mes impôts, en juin on fait une rencontre sur la holding… »" },
+    { id: "lettre_mission", type: "single", label: "As-tu une « lettre de mission » de KPMG ?", aide: "C’est le contrat qui décrit exactement ce qu’ils font et à quel prix. C’est le document le plus utile pour la suite.", options: [
+      "Oui, je l’ai", "Je peux la demander à KPMG", "Je ne sais pas ce que c’est / je ne pense pas" ] },
+    { id: "factures", type: "single", label: "Tes factures KPMG sont détaillées comment ?", options: [
+      "Détaillées : on voit chaque service et les heures", "Seulement des totaux", "Je ne les regarde pas / je ne sais pas" ] },
+    { id: "repartition", type: "textarea", label: "Combien paies-tu à KPMG par année, et comment ça se divise ?", aide: "Ordre de grandeur seulement. Ex. : « impôts perso ~20 k$, compagnies ~120 k$, conseils ~100 k$ ». Dis aussi si c’est vraiment KPMG seulement, ou KPMG plus d’autres frais (gestionnaire, avocat…)." },
+    { id: "contacts", type: "textarea", label: "Avec qui fais-tu affaire chez KPMG, et à quelle fréquence ?", aide: "Les rôles suffisent, pas les noms : associé en fiscalité, comptable, conseiller en patrimoine…" }
+  ]},
+  { id: "structure", titre: "Ta structure", intro: "Comment ton argent et tes compagnies sont organisés.", questions: [
+    { id: "entites", type: "multi", label: "Qu’est-ce qui fait partie de ta structure ?", options: [
+      "Moi personnellement", "Ma conjointe ou mon conjoint", "Une compagnie qui opère (qui fait des affaires)",
+      "Une compagnie de gestion (holding)", "Une fiducie familiale", "Des immeubles locatifs",
+      "Des biens ou des comptes aux États-Unis ou ailleurs", "Je ne sais pas exactement" ] },
+    { id: "nb_compagnies", type: "single", label: "Combien de compagnies au total ?", options: [ "Aucune", "1", "2 ou 3", "4 ou plus", "Je ne sais pas" ] },
+    { id: "province", type: "single", label: "Où es-tu résident pour l’impôt ?", options: [ "Québec", "Ontario", "Ailleurs au Canada", "Hors Canada" ] },
+    { id: "obligations", type: "multi", label: "Quelqu’un t’oblige-t-il à avoir des documents signés par un comptable (CPA) ?", aide: "C’est important : ces documents-là, une IA ne peut pas les signer.", options: [
+      "Une banque, pour un prêt ou une marge de crédit", "Des associés ou des investisseurs", "Un contrat, un gouvernement ou un donneur d’ouvrage",
+      "Une vérification de l’ARC ou de Revenu Québec en cours ou récente", "Non, rien de tout ça", "Je ne sais pas" ] }
+  ]},
+  { id: "placements", titre: "Tes placements", intro: "Pour savoir qui s’occupe vraiment de tes actions.", questions: [
+    { id: "qui_gere", type: "single", label: "Qui achète et vend tes actions ?", options: [
+      "Un gestionnaire ou un courtier (banque, firme de gestion), pas KPMG", "KPMG me conseille et moi ou mon courtier exécutons",
+      "Je gère moi-même", "Un mélange", "Je ne sais pas" ] },
+    { id: "comptes", type: "multi", label: "Quels types de placements as-tu ?", options: [
+      "REER / FERR", "CELI", "Compte non enregistré personnel", "Compte de placement dans une compagnie",
+      "Immobilier", "Placements privés (compagnies non cotées)", "Cryptomonnaies", "Autre" ] },
+    { id: "taille", type: "single", label: "Ordre de grandeur de tes placements, toutes sources confondues", options: [
+      "Moins de 1 M$", "1 à 5 M$", "5 à 20 M$", "Plus de 20 M$", "Je préfère ne pas le dire" ] },
+    { id: "frais_gestion", type: "single", label: "Connais-tu les frais de gestion de tes placements (en % par année) ?", aide: "Ces frais sont souvent séparés de KPMG et peuvent coûter aussi cher.", options: [
+      "Oui, je les connais", "Approximativement", "Non" ] }
+  ]},
+  { id: "priorites", titre: "Ce qui compte pour toi", intro: "Pour savoir quoi bâtir en premier.", questions: [
+    { id: "irritants", type: "textarea", label: "Qu’est-ce qui t’agace ou te semble trop cher avec KPMG en ce moment ?" },
+    { id: "priorites_top", type: "multi", max: 3, label: "Tes 3 priorités", aide: "Choisis-en 3 au maximum.", options: [
+      "Payer moins de frais professionnels", "Payer moins d’impôt, légalement", "Voir toutes mes finances d’un coup d’œil",
+      "Ne plus jamais manquer une échéance (impôts, acomptes, renouvellements)", "Comprendre mes placements et leurs risques",
+      "Préparer ma succession", "Moins de paperasse et de courriels" ] },
+    { id: "garder_humain", type: "textarea", label: "Qu’est-ce que tu veux absolument garder fait par un humain ?", aide: "Ex. : « je veux qu’un comptable signe mes déclarations », « je veux quelqu’un à appeler si l’ARC me contacte »." },
+    { id: "approche", type: "single", label: "Quelle approche te met le plus à l’aise ?", options: [
+      "Remplacer KPMG presque au complet par l’IA", "L’IA fait le gros du travail, un comptable moins cher vérifie et signe",
+      "Garder KPMG, mais l’IA m’aide à comprendre et à payer moins d’heures", "Je ne sais pas, propose-moi" ] },
+    { id: "confort_ia", type: "scale", label: "À quel point es-tu à l’aise qu’une IA voie tes chiffres (sans nom ni numéro de compte) ?", bornes: [ "Pas du tout", "Totalement" ] }
+  ]},
+  { id: "app", titre: "L’app idéale", intro: "Comment tu l’utiliserais.", questions: [
+    { id: "appareils", type: "multi", label: "Sur quoi l’utiliserais-tu ?", options: [ "iPhone", "iPad", "Ordinateur" ] },
+    { id: "frequence", type: "single", label: "À quelle fréquence l’ouvrirais-tu ?", options: [ "Chaque jour", "Chaque semaine", "Seulement quand il y a quelque chose à faire" ] },
+    { id: "app_reve", type: "textarea", label: "Décris l’app de tes rêves en quelques phrases", aide: "Ce que tu vois en l’ouvrant, ce qu’elle te dit, ce qu’elle fait pour toi." },
+    { id: "autre", type: "textarea", label: "Autre chose que je devrais savoir ?" }
+  ]}
+];
+
+const CLE_BROUILLON = "questionnaire-kpmg-brouillon";
+const $ = s => document.querySelector(s);
+const form = $("#formulaire");
+const toutesQuestions = SECTIONS.flatMap(s => s.questions);
+
+
+function el(tag, attrs = {}, ...enfants) {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) { if (k === "text") n.textContent = v; else n.setAttribute(k, v); }
+  enfants.forEach(e => e && n.append(e));
+  return n;
+}
+
+function rendre() {
+  SECTIONS.forEach(sec => {
+    const bloc = el("section", { class: "bloc", "aria-labelledby": "t-" + sec.id },
+      el("div", { class: "bloc-tete" }, el("h2", { id: "t-" + sec.id, text: sec.titre }), el("p", { class: "muted", text: sec.intro })));
+    sec.questions.forEach(q => {
+      if (q.type === "textarea" || q.type === "text") {
+        const w = el("div", { class: "q" }, el("label", { class: "etiquette", for: q.id, text: q.label }));
+        if (q.aide) w.append(el("p", { class: "aide", text: q.aide }));
+        w.append(el(q.type === "textarea" ? "textarea" : "input", { id: q.id, name: q.id, ...(q.type === "text" ? { type: "text" } : {}) }));
+        bloc.append(w);
+      } else if (q.type === "scale") {
+        const f = el("fieldset", { class: "q" }, el("legend", { text: q.label }));
+        const e = el("div", { class: "echelle" });
+        for (let i = 1; i <= 5; i++) e.append(el("label", { for: q.id + "-" + i }, el("input", { type: "radio", id: q.id + "-" + i, name: q.id, value: String(i) }), document.createTextNode(String(i))));
+        f.append(e, el("div", { class: "echelle-bornes" }, el("span", { text: "1 · " + q.bornes[0] }), el("span", { text: "5 · " + q.bornes[1] })));
+        bloc.append(f);
+      } else {
+        const f = el("fieldset", { class: "q" }, el("legend", { text: q.label }));
+        if (q.aide) f.append(el("p", { class: "aide", text: q.aide }));
+        const c = el("div", { class: "choix" });
+        q.options.forEach((o, i) => {
+          const id = q.id + "-" + i;
+          c.append(el("label", { for: id }, el("input", { type: q.type === "multi" ? "checkbox" : "radio", id, name: q.id, value: o }), el("span", { text: o })));
+        });
+        f.append(c);
+        bloc.append(f);
+      }
+    });
+    form.append(bloc);
+  });
+}
+
+function lire() {
+  const r = {};
+  toutesQuestions.forEach(q => {
+    if (q.type === "multi") r[q.id] = [...form.querySelectorAll(`input[name="${q.id}"]:checked`)].map(i => i.value);
+    else if (q.type === "single" || q.type === "scale") r[q.id] = form.querySelector(`input[name="${q.id}"]:checked`)?.value || "";
+    else r[q.id] = (document.getElementById(q.id).value || "").trim();
+  });
+  return r;
+}
+
+function remplir(r) {
+  if (!r) return;
+  toutesQuestions.forEach(q => {
+    const v = r[q.id];
+    if (v == null) return;
+    if (q.type === "multi" || q.type === "single" || q.type === "scale") {
+      const vals = Array.isArray(v) ? v : [v];
+      form.querySelectorAll(`input[name="${q.id}"]`).forEach(i => { i.checked = vals.includes(i.value); });
+    } else document.getElementById(q.id).value = v;
+  });
+  limiterMax();
+}
+
+const repondue = v => Array.isArray(v) ? v.length > 0 : !!v;
+
+function majProgres() {
+  const r = lire();
+  const n = toutesQuestions.filter(q => repondue(r[q.id])).length;
+  $("#progres-texte").textContent = `${n} sur ${toutesQuestions.length} question${n > 1 ? "s" : ""} répondue${n > 1 ? "s" : ""}`;
+  $("#progres-barre").style.width = (100 * n / toutesQuestions.length) + "%";
+}
+
+function limiterMax() {
+  toutesQuestions.filter(q => q.max).forEach(q => {
+    const boites = [...form.querySelectorAll(`input[name="${q.id}"]`)];
+    const n = boites.filter(b => b.checked).length;
+    boites.forEach(b => { b.disabled = !b.checked && n >= q.max; });
+  });
+}
+
+function texteResume(r) {
+  const lignes = ["Questionnaire KPMG — réponses de papa", ""];
+  SECTIONS.forEach(sec => {
+    lignes.push("## " + sec.titre);
+    sec.questions.forEach(q => {
+      const v = r[q.id];
+      lignes.push("- " + q.label + "\n  " + (repondue(v) ? (Array.isArray(v) ? v.join("; ") : v) : "(pas de réponse)"));
+    });
+    lignes.push("");
+  });
+  return lignes.join("\n");
+}
+
+function sauverLocal(r) { try { localStorage.setItem(CLE_BROUILLON, JSON.stringify(r)); } catch {} }
+function lireLocal() { try { return JSON.parse(localStorage.getItem(CLE_BROUILLON) || "null"); } catch { return null; } }
+
+const DESTINATAIRE = "louikagirard@gmail.com";
+
+function surChangement() {
+  limiterMax();
+  majProgres();
+  sauverLocal(lire());
+  $("#sauvegarde").textContent = "Gardé sur cet appareil";
+}
+
+function montrerCopie() {
+  $("#texte-copie").value = texteResume(lire());
+  $("#zone-copie").hidden = false;
+}
+
+$("#btn-copier").addEventListener("click", () => {
+  montrerCopie();
+  const t = $("#texte-copie").value;
+  const repli = () => { $("#texte-copie").select(); $("#etat").className = "etat"; $("#etat").textContent = "Le texte est sélectionné : fais Copier, puis colle-le dans un courriel."; };
+  try {
+    navigator.clipboard.writeText(t).then(() => { $("#etat").className = "etat ok"; $("#etat").textContent = "Réponses copiées. Colle-les dans un courriel à " + DESTINATAIRE + "."; }, repli);
+  } catch { repli(); }
+});
+
+$("#btn-soumettre").addEventListener("click", () => {
+  const etat = $("#etat");
+  const r = lire();
+  const n = toutesQuestions.filter(q => repondue(r[q.id])).length;
+  if (n === 0) { etat.className = "etat err"; etat.textContent = "Réponds à au moins quelques questions avant d’envoyer."; return; }
+  sauverLocal(r);
+  montrerCopie();
+  const sujet = "Questionnaire KPMG - réponses de papa";
+  location.href = "mailto:" + DESTINATAIRE + "?subject=" + encodeURIComponent(sujet) + "&body=" + encodeURIComponent(texteResume(r));
+  etat.className = "etat ok";
+  etat.textContent = "Ton app de courriel devrait s’ouvrir avec tes réponses. Appuie sur Envoyer dans le courriel. Si rien ne s’ouvre, utilise « Copier mes réponses ».";
+});
+
+rendre();
+remplir(lireLocal());
+majProgres();
+if (lireLocal()) $("#sauvegarde").textContent = "Gardé sur cet appareil";
+form.addEventListener("input", surChangement);
+form.addEventListener("change", surChangement);
+</script>
+
+</body>
+</html>
